@@ -1,0 +1,336 @@
+
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Space Mono', monospace;
+}
+
+body {
+    background-color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Space Mono', monospace;
+}
+
+.outer-container {
+    padding: 100px;
+    background-color:#c5e4e7;
+}
+
+.outer-container header {
+    font-weight: 100;
+}
+
+.header {
+    margin-bottom: 40px;
+padding-left: 250px;
+font-weight: 100;
+font-family: 'Space Mono', monospace;
+}
+
+.container {
+    width: 700px;
+    padding: 30px;
+    background-color:white;
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+}
+
+
+
+
+.calculator {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.input-section, .output-section {
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.input-section {
+    background-color: #ffffff;
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.output-section {
+    background-color: #00494d;
+    width: 50%;
+    color: white;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+label {
+    font-size: 12px;
+    color: #5e7a7d;
+    margin-bottom: 10px;
+    display: block;
+}
+
+
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #f3f8fa;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    text-align: right;
+    font-size: 15px;
+    color: #00494d;
+}
+
+.tip-selection {
+    display: flex;
+    flex-direction: column;
+}
+
+.tip-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.tip-buttons button, .tip-buttons input[type="number"] {
+    padding: 10px;
+    background-color: #00494d;
+    color: white;
+    font-size: 13px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.tip-buttons button:hover {
+    background-color: #26c2ae;
+}
+
+.tip-buttons input[type="number"] {
+    background-color: #f3f8fa;
+    color: #00494d;
+    text-align: right;
+    
+}
+
+#bill:hover {
+    border-color: green; /* Green border on hover */
+}
+
+
+.output-section p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.output-section h2 {
+    display: flex;
+    font-size: 32px;
+    color: #26c2ae;
+}
+
+.output-section span {
+    color: #5e7a7d;  
+}
+.reset {
+    width: 100%;
+    padding: 10px;
+    background-color: #26c2ae;
+    border: none;
+    color: #00494d;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.reset:hover {
+    background-color: #00494d;
+    color: white;
+}
+
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.currency {
+    position: absolute;
+    left: 10px; /* Adjust spacing to align $ sign */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #5e7a7d;
+    font-size: 18px;
+    pointer-events: none; /* Prevents the currency symbol from being selected */
+}
+
+#bill {
+    width: 100%;
+    padding: 10px;
+    padding-left: 25px; /* Leaves space for the $ sign */
+    background-color: #f3f8fa;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    text-align: right;
+    font-size: 18px;
+    color: #00494d;
+    outline: none; /* Remove the default browser outline on focus */
+}
+
+#bill:focus {
+    border-color: green; /* Change the border to green when focused (clicked) */
+}
+
+.tip-amount, .total {
+    display: flex;             /* Use flexbox to place elements on the same line */
+    justify-content: space-between; /* Spread the <p> and <h2> to opposite sides */
+    align-items: center;       /* Vertically center the text */
+
+}
+
+.tip-amount p, .total p {
+    margin: 0;                 /* Remove default margin */
+    font-size: 14px;           /* Adjust as needed */
+           /* Color for the description */
+    line-height: 1.5;          /* Adjust line height for the <br> */
+}
+
+.tip-amount h2, .total h2 {
+    margin: 0;                 /* Remove default margin */
+    font-size: 24px;           /* Font size for the amount */
+             /* Color for the amount */
+}
+
+.tip-amount {
+    margin-bottom: 5px;        /* Reduced space between tip amount and total */
+}
+
+
+/* Default styles for the input */
+#people {
+    background-color: #f3f8fa;
+    color: #00494d;
+    text-align: right;
+    border: 1px solid transparent;
+    padding: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Red border when there's an error */
+#people.error {
+    border-color: red;
+    border-radius: 5px;
+}
+
+/* Style for the error message */
+.error-message {
+    color: red;
+    font-size: 13px;
+    margin-left: 45px; /* Adds space between the input and the message */
+    visibility: hidden; /* Initially hidden */
+}
+
+.error-message.visible {
+    visibility: visible; /* Show the message when an error occurs */
+}
+
+@media (max-width: 375px) {
+    .outer-container {
+        padding: 20px; /* Ensure there's enough padding */
+        width: 100%; /* Full width to avoid clipping */
+    }
+
+    .header {
+        padding-left: 0; /* Remove extra padding */
+        text-align: center; /* Center align for smaller screens */
+        margin-top: 120px; /* Adjust spacing */
+    }
+
+    .container {
+        width: 100%; /* Ensure full width */
+        padding: 5px; /* Adjust padding */
+    }
+
+    .calculator {
+        flex-direction: column; /* Stack elements vertically */
+    }
+
+    .input-section, .output-section {
+        width: 100%; /* Full width for both sections */
+    }
+
+    .input-section {
+        width: 100%; /* Ensure full width for input section */
+    }
+
+    .output-section {
+        width: 90%; /* Ensure full width for output section */
+      margin-left: 15px;
+    }
+
+    .tip-buttons {
+        grid-template-columns: repeat(2, 1fr); /* Adjust grid layout */
+    }
+
+    .tip-buttons button, .tip-buttons input[type="number"] {
+        font-size: 12px; /* Smaller font size */
+        padding: 8px; /* Adjust padding */
+    }
+
+    .output-section h2 {
+        font-size: 24px; /* Adjust font size */
+    }
+
+    .reset {
+        font-size: 16px; /* Adjust font size */
+        padding: 8px; /* Adjust padding */
+    }
+
+    .currency {
+        font-size: 16px; /* Adjust currency symbol size */
+    }
+
+    .error-message {
+        font-size: 14px; /* Increase font size */
+        margin-left: 10px; /* Adjust margin */
+        visibility: visible; /* Ensure visibility */
+    }
+
+    .attribution {
+        display: none; /* Hide attribution */
+    }
+
+    input[type="number"] {
+        width: 100%; /* Ensure full width */
+        padding: 12px 10px; /* Adjust padding */
+        font-size: 16px; /* Increase font size */
+    }
+
+    label {
+        font-size: 14px; /* Adjust font size */
+        display: block; /* Ensure labels are displayed correctly */
+    }
+
+    .tip-buttons input[type="number"] {
+        font-size: 16px; /* Adjust font size */
+        padding: 12px 10px; /* Adjust padding */
+    }
+}

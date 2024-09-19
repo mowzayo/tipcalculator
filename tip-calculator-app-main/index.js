@@ -1,0 +1,110 @@
+// Function to calculate the tip and total amount
+function calculateTip() {
+  // Get the bill amount input
+  const totalBillInput = document.getElementById('bill');
+  const totalBill = parseFloat(totalBillInput.value.trim()) || 0; // Default to 0 if input is empty
+
+  // Get the selected tip percentage
+  const tipButtons = document.querySelectorAll('.tip-buttons button');
+  const customTipInput = document.querySelector('.tip-buttons input[type="number"]');
+  let percent = 0;
+
+  // Handle button selection
+  tipButtons.forEach(button => {
+    if (button.classList.contains('selected')) {
+      percent = parseFloat(button.textContent.replace('%', '')) || 0;
+    }
+  });
+
+  // Handle custom tip input
+  if (customTipInput.value) {
+    percent = parseFloat(customTipInput.value) || 0;
+  }
+
+  // Get the number of people
+  const numberPerson = document.getElementById('people');
+  const numberPersonValue = parseFloat(numberPerson.value.trim()) || 0; // Set to 0 for validation
+  const errorMessage = document.querySelector('.error-message');
+
+  // Check if the number of people is 0 or invalid
+  if (numberPersonValue === 0 || isNaN(numberPersonValue)) {
+    // Show error message and apply red border
+    errorMessage.textContent = "Can't be zero";
+    errorMessage.classList.add('visible');
+    numberPerson.classList.add('error');
+    // Reset the output values
+    document.querySelector('.tip-amount h2').textContent = '$0.00';
+    document.querySelector('.total h2').textContent = '$0.00';
+    return; // Exit the function to avoid calculation with invalid input
+  } else {
+    // Hide error message and remove red border
+    errorMessage.textContent = "";
+    errorMessage.classList.remove('visible');
+    numberPerson.classList.remove('error');
+  }
+
+  // Calculate the tip amount
+  const tipAmount = totalBill * (percent / 100) * numberPersonValue;
+
+  // Calculate the total bill including the tip for all people
+  const totalBillWithTip = totalBill + tipAmount;
+
+  // Update the tip amount in the DOM
+  const tipAmountOutput = document.querySelector('.tip-amount h2');
+  tipAmountOutput.textContent = `$${tipAmount.toFixed(2)}`;
+
+  // Update the total amount in the DOM
+  const totalPersonBillOutput = document.querySelector('.total h2');
+  totalPersonBillOutput.textContent = `$${totalBillWithTip.toFixed(2)}`;
+}
+
+// Add event listeners for tip buttons
+const tipButtons = document.querySelectorAll('.tip-buttons button');
+tipButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    // Remove 'selected' class from all buttons
+    tipButtons.forEach(btn => btn.classList.remove('selected'));
+    // Add 'selected' class to the clicked button
+    this.classList.add('selected');
+    // Clear the custom input field when a button is selected
+    document.querySelector('.tip-buttons input[type="number"]').value = '';
+    // Recalculate the tip
+    calculateTip();
+  });
+});
+
+// Handle custom tip input
+const customTipInput = document.querySelector('.tip-buttons input[type="number"]');
+customTipInput.addEventListener('input', function() {
+  // Deselect all tip buttons when custom input is used
+  tipButtons.forEach(button => button.classList.remove('selected'));
+  // Recalculate the tip
+  calculateTip();
+});
+
+// Add event listeners for input changes (bill and people)
+document.getElementById('bill').addEventListener('input', calculateTip);
+document.getElementById('people').addEventListener('input', calculateTip);
+
+// Reset button functionality
+const resetButton = document.querySelector('.reset');
+resetButton.addEventListener('click', () => {
+  // Reset all inputs
+  document.getElementById('bill').value = '';
+  document.getElementById('people').value = '';
+  customTipInput.value = '';
+
+  // Remove 'selected' class from tip buttons
+  tipButtons.forEach(btn => btn.classList.remove('selected'));
+
+  // Reset the output values to $0.00
+  document.querySelector('.tip-amount h2').textContent = '$0.00';
+  document.querySelector('.total h2').textContent = '$0.00';
+
+  // Hide error message and remove red border
+  const numberPerson = document.getElementById('people');
+  const errorMessage = document.querySelector('.error-message');
+  errorMessage.textContent = "";
+  errorMessage.classList.remove('visible');
+  numberPerson.classList.remove('error');
+});
